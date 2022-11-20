@@ -7,6 +7,7 @@ class AppSongModel extends SongEntity {
     required super.path,
     required super.duration,
     required super.isPlaying,
+    required super.isFavourite,
   });
 
   factory AppSongModel.fromJson(Map<dynamic, dynamic> json) {
@@ -16,6 +17,7 @@ class AppSongModel extends SongEntity {
       duration: Duration(milliseconds: json['duration']),
       path: json['_data'],
       isPlaying: false,
+      isFavourite: false,
     );
   }
 }

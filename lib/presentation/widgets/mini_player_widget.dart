@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_player/presentation/blocs/audio_player_bloc/audio_player_bloc.dart';
 import 'package:music_player/presentation/widgets/audio_player_play_pause_button.dart';
 import 'package:music_player/presentation/widgets/audio_player_slider.dart';
 import '../../constants/color_constants.dart';
@@ -20,6 +22,7 @@ class MiniPlayerWidget extends StatefulWidget {
 }
 
 class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
+  bool isFav = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,14 +69,34 @@ class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
                   ),
                 ),
               ),
-              const AudioPlayerPlayPauseButton(playButtonSize: 30,),
+              const AudioPlayerPlayPauseButton(
+                playButtonSize: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.only(right: 10),
-                child: IconButton(
-                  color: Colors.white,
-                  iconSize: 30,
-                  icon: const Icon(Icons.favorite_border_outlined),
-                  onPressed: () {},
+                child: BlocBuilder<AudioPlayerBloc, AudioPlayerState>(
+                  builder: (context, state) {
+                    if (state is PlayingState) {
+                      isFav =
+                          state.audioPlayerReturnType.appSongModel.isFavourite;
+                    }
+                    if (state is PausedState) {
+                      isFav =
+                          state.audioPlayerReturnType.appSongModel.isFavourite;
+                    }
+                    return IconButton(
+                      color: isFav ? Colors.red : Colors.white,
+                      iconSize: 30,
+                      icon: isFav
+                          ? const Icon(Icons.favorite)
+                          : const Icon(Icons.favorite_border_outlined),
+                      onPressed: () {
+                        BlocProvider.of<AudioPlayerBloc>(context).add(
+                            ToggleFavoriteEvent(
+                                appSongModel: widget.songs[widget.index]));
+                      },
+                    );
+                  },
                 ),
               ),
             ],

@@ -39,3 +39,8 @@ class StopSongEvent extends AudioPlayerEvent {
     required this.appSongModel,
   });
 }
+
+class ToggleFavoriteEvent extends AudioPlayerEvent {
+  final AppSongModel appSongModel;
+  const ToggleFavoriteEvent({required this.appSongModel});
+}

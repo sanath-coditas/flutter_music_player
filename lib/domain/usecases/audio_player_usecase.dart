@@ -29,7 +29,10 @@ class AudioPlayerUsecase {
       {required AppSongModel songModel}) async {
     return await songsRepository.stopSong(songModel: songModel);
   }
- 
+  Future<Either<Failure, AppSongModel>> toggleFavorite(
+      {required AppSongModel songModel}) async {
+    return await songsRepository.toggleFavorite(songModel: songModel);
+  } 
 }
 
 class AudioPlayerReturnType {

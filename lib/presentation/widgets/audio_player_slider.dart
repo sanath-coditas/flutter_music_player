@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player/presentation/blocs/audio_player_bloc/audio_player_bloc.dart';
@@ -74,7 +72,6 @@ class _AudioPlayerSliderState extends State<AudioPlayerSlider> {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    log('here.........');
                     return Slider(
                       value: AudioPlayerSlider.currentValue,
                       min: minValue,

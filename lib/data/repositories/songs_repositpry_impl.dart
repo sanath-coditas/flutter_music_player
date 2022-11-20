@@ -29,13 +29,20 @@ class SongsRepositoryImpl implements SongsRepository {
 
   @override
   Future<Either<Failure, AudioPlayerReturnType>> seekSong(
-      {required AppSongModel songModel,required Duration seekDuration}) async {
-    return await localDataSource.seekSong(songModel: songModel,seekDuration: seekDuration);
+      {required AppSongModel songModel, required Duration seekDuration}) async {
+    return await localDataSource.seekSong(
+        songModel: songModel, seekDuration: seekDuration);
   }
 
   @override
   Future<Either<Failure, AudioPlayerReturnType>> stopSong(
       {required AppSongModel songModel}) async {
     return await localDataSource.stopSong(songModel: songModel);
+  }
+
+  @override
+  Future<Either<Failure, AppSongModel>> toggleFavorite(
+      {required AppSongModel songModel}) async {
+    return await localDataSource.toggleFavorite(songModel: songModel);
   }
 }

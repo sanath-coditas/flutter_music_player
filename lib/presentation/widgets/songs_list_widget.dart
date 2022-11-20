@@ -48,8 +48,11 @@ class SongsListWidget extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                          
-                          return PlayScreen(songs: state.songs, index: index);
+                          return PlayScreen(
+                            songs: state.songs,
+                            index: index,
+                            isFav: state.songs[index].isFavourite,
+                          );
                         }));
                       },
                       child: MiniPlayerWidget(

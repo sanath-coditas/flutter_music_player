@@ -17,7 +17,9 @@ abstract class LocalDataSource {
   Future<Either<Failure, AudioPlayerReturnType>> seekSong(
       {required AppSongModel songModel, required Duration seekDuration});
   Future<Either<Failure, AudioPlayerReturnType>> stopSong(
-      {required AppSongModel songModel});    
+      {required AppSongModel songModel});
+  Future<Either<Failure, AppSongModel>> toggleFavorite(
+      {required AppSongModel songModel});
 }
 
 class PhoneStorageMusicDataSource implements LocalDataSource {
@@ -100,10 +102,11 @@ class PhoneStorageMusicDataSource implements LocalDataSource {
       return Left(PauseFailure(message: e.toString()));
     }
   }
-  
+
   @override
-  Future<Either<Failure, AudioPlayerReturnType>> stopSong({required AppSongModel songModel}) async{
-     try {
+  Future<Either<Failure, AudioPlayerReturnType>> stopSong(
+      {required AppSongModel songModel}) async {
+    try {
       songModel.isPlaying = false;
       await audioPlayer.stop();
       return Right(AudioPlayerReturnType(
@@ -115,6 +118,19 @@ class PhoneStorageMusicDataSource implements LocalDataSource {
       ));
     } on Exception catch (e) {
       return Left(PauseFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AppSongModel>> toggleFavorite(
+      {required AppSongModel songModel}) async {
+    try {
+      songModel.isFavourite = !songModel.isFavourite;
+      return Right(songModel);
+    } on Exception catch (_) {
+      return Left(
+        FetchFailure(message: 'Unable to toggle....'),
+      );
     }
   }
 }

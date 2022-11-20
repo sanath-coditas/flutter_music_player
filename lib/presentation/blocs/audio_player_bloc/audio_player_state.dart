@@ -25,3 +25,11 @@ class PausedState extends AudioPlayerState {
   final AudioPlayerReturnType audioPlayerReturnType;
   const PausedState({required this.audioPlayerReturnType});
 }
+
+class ToggleSuccessState extends AudioPlayerState {
+  final AudioPlayerReturnType audioPlayerReturnType;
+  const ToggleSuccessState({
+    required this.audioPlayerReturnType,
+  });
+
+}

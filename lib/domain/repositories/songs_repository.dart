@@ -12,5 +12,7 @@ abstract class SongsRepository {
   Future<Either<Failure, AudioPlayerReturnType>> seekSong(
       {required AppSongModel songModel, required Duration seekDuration});
   Future<Either<Failure, AudioPlayerReturnType>> stopSong(
-      {required AppSongModel songModel});    
+      {required AppSongModel songModel}); 
+  Future<Either<Failure, AppSongModel>> toggleFavorite(
+      {required AppSongModel songModel});        
 }
